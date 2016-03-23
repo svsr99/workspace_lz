@@ -1,0 +1,63 @@
+# Author : Ferdinand Ngotiaoco
+# Modified by: Darshan S Mahendrakar 
+# Date: 08/26/15
+
+# ---------------CURRENT SCRIPTED CHEATSHEET--------------  
+
+# Here are the parameter for each comment:
+
+# To add a workspace in /group directory in hdfs
+# CREATE|GROUP|GROUP_DIR|USER_NAME|GROUP_NAME|SIZE
+
+# To add a workspace in /user directory in hdfs
+# CREATE|USER|USER_NAME|GROUP_NAME|SIZE
+
+# To add a workspace in /data/raw directory
+# CREATE|DATA_RAW|GROUP_DIR|USER_NAME|GROUP_NAME|SIZE
+
+# To add a workspace in /data/refine directory
+# CREATE|DATA_REFINED|GROUP_DIR|USER_NAME|GROUP_NAME|SIZE
+
+# To create a database in /data/raw/<APP_ID>/db_name.db
+# CREATE|DATABASE|RAW|DB_NAME|APP_ID
+
+# To create a database in /data/refined/<APP_ID>/db_name.db
+# CREATE|DATABASE|REFINED|DB_NAME|APP_ID
+
+# To create URI ACCESS For ADMIN to access HDFS DIR and Multiple Database 
+# CREATE|ROLE|APP_DIR|GROUP_NAME|ROLE_TYPE_ADMIN|URI:DATA_RAW:HDFS_LOCATION:ALL,URI:DATA_REFINED:HDFS_LOCATION:ALL,URI:GROUP:HDFS_LOCATION:ALL,DB_RAW:DB_NAME_RAW:ALL,DB_REFINED:DB_NAME_REFINED:ALL
+
+# To create URI Access for POWERUSER TO ACCESS DB
+# CREATE|ROLE|APP_DIR|GROUP_NAME|ROLE_TYPE_POWERUSER|URI:GROUP:HDFS_LOCATION:ALL,DB_REFINED:DB_NAME:ALL
+
+# To Create Staging Directory for APP_ID
+#  CREATE|STAGING|GROUP_DIR|USER|GROUP_NAME
+
+# Size can be in m(mb), g(gb) or t(tb). E.g, for 10mb, use 10m.  For 10gbm use
+# 10g.  For 10tb, use 10t
+
+# Modify CUSTOM ACL FOR SPECIFIC HDFS LOCATION.
+# MODIFY|ACL|USER/GROUP|DATA_RAW/_REFINED/GROUP/USER:HDFS_DIR:SELECT/ALL,DATA_RAW/_REFINED/GROUP/USER:HDFS_DIR:SELECT/ALL
+
+# Modify space quota for a specific hdfs location
+# MODIFY|QUOTA|DATA_RAW/_REFINED/GROUP/USER:HDFS_DIR:SIZE
+
+
+#RoleType : ADMIN or POWERUSER
+
+#__________SAMPLE__________
+# File Name : lzhonda.wsp
+#
+# CREATE|GROUP|lzhonda|lzhonda|lzghonda|500g
+# CREATE|USER|lzhonda|lzghonda|0
+# CREATE|DATA_RAW|lzhonda|lzhonda|lzghonda|1t
+# CREATE|DATA_REFINED|lzhonda|lzhonda|lzghonda|500g
+# CREATE|DATA_RAW|lzhonda5|lzhonda|lzghonda|500g
+# CREATE|DATA_REFINED|lzhonda5|lzhonda|lzghonda|500g
+# CREATE|DATABASE|RAW|lzhonda_raw|lzhonda
+# CREATE|DATABASE|REFINED|lzhonda|lzhonda
+# CREATE|DATABASE|RAW|lzhonda5_raw|lzhonda
+# CREATE|DATABASE|REFINED|lzhonda5|lzhonda
+# CREATE|ROLE|lzhonda|lzghonda|ADMIN|URI:DATA_RAW:lzhonda:ALL,URI:DATA_REFINED:lzhonda:ALL,URI:GROUP:lzhonda:ALL,DB_RAW:lzhonda_raw:ALL,DB_REFINED:lzhonda:ALL,URI:DATA_RAW:lzhonda5:ALL,URI:DATA_REFINED:lzhonda5:ALL,DB_RAW:lzhonda5_raw:ALL,DB_REFINED:lzhonda5:ALL
+# CREATE|ROLE|lzhonda|lz2honda|POWERUSER|URI:GROUP:lzhonda:ALL,DB_REFINED:lzhonda:ALL,DB_REFINED:lzhonda5:ALL
+#

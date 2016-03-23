@@ -1,0 +1,65 @@
+#!bin/bash
+# Project : Landing Zone
+# Description : Contains the environment required by the create_workspace.sh
+# CLUSTER_ENV contains the environment of the node where the script is runing. It can have the following value : POC,DEV,TEST,PROD
+# INPUT_DIR contains the directory where the workspace request file will be added
+# LOG_FILE contains the log file
+# ERROR_STMT contains the header of an error statement
+# LOG_STMT contains the header of an log statement
+# BEELINE_CONNECT_STR contains the connect string to create the database
+# ROLE : contains all the ROLE based variable when creating the workspace
+# Author : Ferdinand Ngotiaoco
+source /platform/env/server_env.sh
+
+# User and ENV specific 
+KEY_TAB=lzwsp.keytab
+APP_ID=lzwsp
+CLUSTER_ENV=${ENV}
+INPUT_DIR=/apps/platform/workspace/input
+INPUT_WILDCARD="*.wsp"
+PROCESSED_DIR=/apps/platform/workspace/output
+STAGING_DIR=${STAGING_DIR} # From server_env.sh
+SYM_LINK_STAGING="/data/staging"
+DATE=$(date +"%y%m%d_%H%M%S")
+TIME_STAMP=`date`
+EMAIL_RECIPIENTS="landingzoneplatform-IREG@kp.org,Sushant.X.Sharma@kp.org,sathishkumar.manimoorthy@kp.org"
+
+# Logging 
+LOG_FILE=/var/log/lz/lzwsp/workspace/logs/
+SUMMARY_LOG=/var/log/lz/lzwsp/workspace/logs/
+ERROR="ERROR"
+INFO="INFO"
+WARN="WARN"
+ERROR_STMT="$TIME_STAMP|$ERROR"
+INFO_STMT="$TIME_STAMP|$INFO"
+WARN_STMT="$TIME_STAMP|$WARN"
+
+
+# HDFS related 
+DB_NAME=default
+BEELINE_CONNECT_STR="${BEELINE_JDBC}/${DB_NAME};${BEELINE_PRINCIPAL}"
+HDFS_HOST="hdfs://$NAMENODE_SERVICE"
+DB_SERVER="server1"
+BASE_DATA_RAW_HDFS=/data/raw
+BASE_DATA_REFINED_HDFS=/data/refined
+BASE_GROUP_HDFS=/group
+USER_HDFS=/user
+
+#AD Group Role standard for each environment
+ROLE_ADMIN="ADMIN"
+ROLE_POWERUSER="POWERUSER"
+ROLE_ANALYST="ANALYST"
+ADMIN_ROLE_SUFFIX=ADM
+DATA_SCI_ROLE_SUFFIX=DTSCI
+POWERUSER_ROLE_SUFFIX=PWRUSR
+ANALYST_ROLE_SUFFIX=ANA
+ROLE_ADMIN="lzg"
+ROLE_POWERUSER_GROUP_DEV="lz6"
+ROLE_POWERUSER_GROUP_TEST="lz4"
+ROLE_POWERUSER_GROUP_PROD="lz2"
+ROLE_ANALYST_GROUP_DEV="lz7"
+ROLE_ANALYST_GROUP_TEST="lz5"
+ROLE_ANALYST_GROUP_PROD="lz3"
+
+#Variables for the Create Input File script
+GENERATED_WSP_DIR=~/run/generated_wsp

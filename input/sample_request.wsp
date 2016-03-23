@@ -1,0 +1,11 @@
+CREATE|GROUP|lzdarsh|lzdarsh|lzgdarsh|10g
+CREATE|USER|lzdarsh|lzgdarsh|0
+CREATE|DATA_RAW|lzdarsh|lzdarsh|lzgdarsh|50g
+CREATE|DATA_REFINED|lzdarsh|lzdarsh|lzgdarsh|500g
+CREATE|DATABASE|RAW|lzdarsh1_raw|lzdarsh
+CREATE|DATABASE|RAW|lzdarsh2_raw|lzdarsh
+CREATE|DATABASE|REFINED|lzdarsh1_ref|lzdarsh
+CREATE|DATABASE|REFINED|lzdarsh2_ref|lzdarsh
+CREATE|ROLE|lzdarsh|lzgdarsh|ADMIN|URI:DATA_RAW:ALL,URI:DATA_REFINED:ALL,URI:GROUP:ALL,DB_RAW:lzdarsh1_raw:ALL,DB_REFINED:lzdarsh2_ref:ALL,DB_RAW:lzdarsh1_raw:ALL,DB_REFINED:lzdarsh1_ref:ALL
+CREATE|ROLE|lzdarsh|lz2darsh|POWERUSER|URI:GROUP:ALL,DB_REFINED:lzdarsh_ref1:ALL,DB_REFINED:lzdarsh_ref2:ALL
+CREATE|ROLE|lzingst|lzgingst|ADMIN|DB_RAW:lzdarsh1_raw:SELECT,DB_RAW:lzdarsh2_raw:SELECT
